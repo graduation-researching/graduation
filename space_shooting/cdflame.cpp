@@ -11,6 +11,7 @@ void syokika(){
 	HERO.LIFE = 3;
 	HERO.movement = 5;
 	HERO.type = red;
+	HERO.soeji = 0;
 	for (int i = 0; i < bullet_count; i++){
 		HERO.BULLET[i].living = FALSE;
 	}
@@ -57,29 +58,14 @@ void Init_BOSS(int i,int x,int y){
 }
 void SET_PLAYER_BULLET(){
 
-	int key = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 	int Tseigyo;
-
-	if (key & PAD_INPUT_A){
 		
-		for (int i = 0; i < 20; i++){
-			if (HERO.BULLET[i].living == FALSE){
-				if (i != 0){
-					HERO.BULLET[i].time = GetNowCount();
-					Tseigyo = HERO.BULLET[i].time - timer - HERO.BULLET[i - 1].time;
-					if (Tseigyo >= 2000){
-						HERO.BULLET[i].time = Tseigyo;
-						HERO.BULLET[i].living = TRUE;
-						HERO.BULLET[i].SBP = HERO.y;
-						HERO.BULLET[i].x = HERO.x;
-						HERO.BULLET[i].y = HERO.y - 50;
-						HERO.BULLET[i].type = HERO.type;
-						HERO.BULLET[i].movement = 7;
-						InitBulletImage(i);
-						break;
-					}
-				}else{
-					HERO.BULLET[i].time = GetNowCount() - timer;
+	for (int i = 0; i < 20; i++, HERO.soeji = i){
+		if (HERO.BULLET[i].living == FALSE){
+			if (i != 0){
+				HERO.BULLET[i].time = GetNowCount();
+				Tseigyo = HERO.BULLET[i].time - HERO.BULLET[HERO.soeji - 1].time;
+				if (Tseigyo >= 250){
 					HERO.BULLET[i].living = TRUE;
 					HERO.BULLET[i].SBP = HERO.y;
 					HERO.BULLET[i].x = HERO.x;
@@ -87,13 +73,42 @@ void SET_PLAYER_BULLET(){
 					HERO.BULLET[i].type = HERO.type;
 					HERO.BULLET[i].movement = 7;
 					InitBulletImage(i);
-					break;
 				}
 
 			}else{
-				
+				if (HERO.soeji != 0){
+					HERO.BULLET[i].time = GetNowCount();
+					Tseigyo = HERO.BULLET[i].time - HERO.BULLET[HERO.soeji].time;
+					if (Tseigyo >= 250){
+						HERO.BULLET[i].time = GetNowCount();
+						HERO.BULLET[i].living = TRUE;
+						HERO.BULLET[i].SBP = HERO.y;
+						HERO.BULLET[i].x = HERO.x;
+						HERO.BULLET[i].y = HERO.y - 50;
+						HERO.BULLET[i].type = HERO.type;
+						HERO.BULLET[i].movement = 7;
+						InitBulletImage(i);
+					}
+				}else{
+					HERO.BULLET[i].time = GetNowCount();
+					HERO.BULLET[i].living = TRUE;
+					HERO.BULLET[i].SBP = HERO.y;
+					HERO.BULLET[i].x = HERO.x;
+					HERO.BULLET[i].y = HERO.y - 50;
+					HERO.BULLET[i].type = HERO.type;
+					HERO.BULLET[i].movement = 7;
+					InitBulletImage(i);
+				}
 			}
+			break;
 		}
-		
 	}
+		
 }
+
+/*
+
+HERO.BULLET[i].time - HERO.BULLET[HERO.soeji].time	33289	int
+
+
+*/
