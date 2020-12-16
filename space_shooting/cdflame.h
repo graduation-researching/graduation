@@ -31,6 +31,7 @@ struct Charadata{
 	int type;/*属性の切り替え*/
 	BOOL living;/*存在証明*/
 	Data BULLET[20];/*自機/敵機の弾*/
+	int soeji;/*弾が何発撃たれたのかを記録*/
 	int StageNum;/*コンティニューする際のステージナンバーの記録*/
 	int IMGH[4][12];/*自機の画像*/
 };
