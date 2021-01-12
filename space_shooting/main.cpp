@@ -1,4 +1,4 @@
-#include"main.h"
+ï»¿#include"main.h"
 #include<DxLib.h>
 
 int MAX_MONITOR_SIZE = MAPHEIGHT * IMGSIZE;
@@ -15,7 +15,7 @@ BOOL g_akey_prev = FALSE;
 
 int timer;
 
-int largefont = CreateFontToHandle("ƒƒCƒŠƒI", 42, -1, DX_FONTTYPE_NORMAL);
+int largefont = CreateFontToHandle("ãƒ¡ã‚¤ãƒªã‚ª", 42, -1, DX_FONTTYPE_NORMAL);
 
 int g_timestart = 0;
 
@@ -77,6 +77,14 @@ void DrawGameMain(){
 		IMGhandle();
 		g_timestart = GetNowCount();
 	}
+	if (keychecker_e(key) == TRUE){
+		clsDx();
+		gametype = GAME_CLEAR;
+		SetGraphMode(monitorsize_x, monitorsize_y, 32);
+		IMGhandle();
+		g_timestart = GetNowCount();
+	}
+
 	gamemain();
 }
 void DrawGameOver(){
@@ -86,8 +94,8 @@ void DrawGameOver(){
 
 	DrawExtendGraph(0, 0, monitorsize_x, monitorsize_y, GAMEOVER, TRUE);
 
-	/*DrawStringToHandle(200, 200, "¶‚ð‰Ÿ‚·‚ÆƒRƒ“ƒeƒBƒjƒ…[", GetColor(255, 255, 255), largefont, 32, FALSE);
-	DrawStringToHandle(200, 250, "‰E‚ð‰Ÿ‚·‚ÆƒQ[ƒ€I—¹", GetColor(255, 255, 255), largefont, 32, FALSE);*/
+	/*DrawStringToHandle(200, 200, "å·¦ã‚’æŠ¼ã™ã¨ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼", GetColor(255, 255, 255), largefont, 32, FALSE);
+	DrawStringToHandle(200, 250, "å³ã‚’æŠ¼ã™ã¨ã‚²ãƒ¼ãƒ çµ‚äº†", GetColor(255, 255, 255), largefont, 32, FALSE);*/
 
 	if (CheckHitKey(KEY_INPUT_LEFT) == TRUE){
 		gametype = GAME_MAIN;
@@ -105,7 +113,24 @@ void DrawGameOver(){
 
 }
 void DrawGameClear(){
-	
+	clsDx();
+
+	int Timecount = GetNowCount();
+
+	DrawExtendGraph(0, 0, monitorsize_x, monitorsize_y, GAMECLEAR, TRUE);
+
+	/*DrawStringToHandle(200, 200, "å·¦ã‚’æŠ¼ã™ã¨ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼", GetColor(255, 255, 255), largefont, 32, FALSE);
+	DrawStringToHandle(200, 250, "å³ã‚’æŠ¼ã™ã¨ã‚²ãƒ¼ãƒ çµ‚äº†", GetColor(255, 255, 255), largefont, 32, FALSE);*/
+
+	if (CheckHitKey(KEY_INPUT_RIGHT) == TRUE){
+		exit(0);
+	}
+	if (Timecount - g_timestart > 5000){
+		gametype = GAME_TITLE;
+		SetGraphMode(monitorsize_x, monitorsize_y, 32);
+		IMGhandle();
+	}
+
 }
 int keychecker_z(int key){
 	if (key & PAD_INPUT_A){
@@ -121,6 +146,18 @@ int keychecker_z(int key){
 }
 int keychecker_b(int key){
 	if (key & PAD_INPUT_10){
+		if (g_akey_prev == FALSE){
+			g_akey_prev = TRUE;
+			return TRUE;
+		}
+	}
+	else{
+		g_akey_prev = FALSE;
+	}
+	return FALSE;
+}
+int keychecker_e(int key){
+	if (key & PAD_INPUT_C){
 		if (g_akey_prev == FALSE){
 			g_akey_prev = TRUE;
 			return TRUE;
