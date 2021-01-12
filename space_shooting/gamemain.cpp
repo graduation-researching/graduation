@@ -1,4 +1,4 @@
-#include<DxLib.h>
+ï»¿#include<DxLib.h>
 #include"gamemain.h"
 #include"loading.h"
 #include"cdprocess.h"
@@ -75,7 +75,7 @@ void gamemain(){
 	
 
 	clsDx();
-	printfDx("Y²:%f\nX²:%f\nƒXƒNƒ[ƒ‹—Ê:%f\nŠÔ:%d\nƒXƒNƒ[ƒ‹•â³’l:%d\n’e”:%d\n", HERO.y, HERO.x,scrolly, GetNowCount() - timer,HERO.SC_Hosei,HERO.soeji);
+	printfDx("Yè»¸:%f\nXè»¸:%f\nã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«é‡:%f\næ™‚é–“:%d\nã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«è£œæ­£å€¤:%d\nå¼¾æ•°:%d\n", HERO.y, HERO.x,scrolly, GetNowCount() - timer,HERO.SC_Hosei,HERO.soeji);
 }
 
 void DrawMap(){
