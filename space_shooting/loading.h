@@ -1,4 +1,4 @@
-#ifndef __LOADING_H__
+﻿#ifndef __LOADING_H__
 #define __LOADING_H__
 
 #include<DxLib.h>
@@ -14,6 +14,7 @@ extern int gif[4][12];
 extern int BOSS;
 extern int TITLE;
 extern int GAMEOVER;
+extern int GAMECLEAR;
 extern int BULLET[4];
 
 BOOL IMGhandle();
