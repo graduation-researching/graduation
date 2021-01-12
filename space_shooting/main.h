@@ -1,4 +1,4 @@
-#ifndef __MAIN_H__
+﻿#ifndef __MAIN_H__
 #define __MAIN_H__
 
 #include<DxLib.h>
@@ -18,6 +18,7 @@ void DrawGameOver();
 void DrawGameClear();
 int keychecker_z(int);
 int keychecker_b(int);
+int keychecker_e(int);
 
 extern int gamemainsize_x;
 extern int gamemainsize_y;
