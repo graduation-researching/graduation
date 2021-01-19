@@ -48,6 +48,9 @@ int WINAPI WinMain(HINSTANCE h1, HINSTANCE hp, LPSTR lpc, int nC){
 		case GAME_CLEAR:
 			DrawGameClear();
 			break;
+		case GAME_CLEAR_1:
+			DrawGameClear_1();
+			break;
 		}
 		ScreenFlip();
 	}
@@ -77,9 +80,16 @@ void DrawGameMain(){
 		IMGhandle();
 		g_timestart = GetNowCount();
 	}
-	if (keychecker_e(key) == TRUE){
+	if (keychecker_c(key) == TRUE){
 		clsDx();
 		gametype = GAME_CLEAR;
+		SetGraphMode(monitorsize_x, monitorsize_y, 32);
+		IMGhandle();
+		g_timestart = GetNowCount();
+	}
+	if (keychecker_d(key) == TRUE){
+		clsDx();
+		gametype = GAME_CLEAR_1;
 		SetGraphMode(monitorsize_x, monitorsize_y, 32);
 		IMGhandle();
 		g_timestart = GetNowCount();
@@ -93,6 +103,8 @@ void DrawGameOver(){
 	int Timecount = GetNowCount();
 
 	DrawExtendGraph(0, 0, monitorsize_x, monitorsize_y, GAMEOVER, TRUE);
+	SetDrawScreen(DX_SCREEN_FRONT);
+	DrawFormatStringToHandle(200, 200, GetColor(255, 255, 255), largefont, "continue");
 
 	/*DrawStringToHandle(200, 200, "左を押すとコンティニュー", GetColor(255, 255, 255), largefont, 32, FALSE);
 	DrawStringToHandle(200, 250, "右を押すとゲーム終了", GetColor(255, 255, 255), largefont, 32, FALSE);*/
@@ -115,9 +127,9 @@ void DrawGameOver(){
 void DrawGameClear(){
 	clsDx();
 
-	int Timecount = GetNowCount();
-
 	DrawExtendGraph(0, 0, monitorsize_x, monitorsize_y, GAMECLEAR, TRUE);
+
+	int Timecount = GetNowCount();
 
 	/*DrawStringToHandle(200, 200, "左を押すとコンティニュー", GetColor(255, 255, 255), largefont, 32, FALSE);
 	DrawStringToHandle(200, 250, "右を押すとゲーム終了", GetColor(255, 255, 255), largefont, 32, FALSE);*/
@@ -131,7 +143,36 @@ void DrawGameClear(){
 		IMGhandle();
 	}
 
+
+
+	
 }
+void DrawGameClear_1(){
+	clsDx();
+
+	DrawExtendGraph(0, 0, monitorsize_x, monitorsize_y, GAMECLEAR_1, TRUE);
+
+	int Timecount = GetNowCount();
+
+
+	/*DrawStringToHandle(200, 200, "左を押すとコンティニュー", GetColor(255, 255, 255), largefont, 32, FALSE);
+	DrawStringToHandle(200, 250, "右を押すとゲーム終了", GetColor(255, 255, 255), largefont, 32, FALSE);*/
+
+
+	if (CheckHitKey(KEY_INPUT_RIGHT) == TRUE){
+		exit(0);
+	}
+	if (Timecount - g_timestart > 5000){
+		gametype = GAME_TITLE;
+		SetGraphMode(monitorsize_x, monitorsize_y, 32);
+		IMGhandle();
+	}
+
+
+
+
+}
+
 int keychecker_z(int key){
 	if (key & PAD_INPUT_A){
 		if (g_akey_prev == FALSE){
@@ -156,8 +197,20 @@ int keychecker_b(int key){
 	}
 	return FALSE;
 }
-int keychecker_e(int key){
-	if (key & PAD_INPUT_C){
+int keychecker_c(int key){
+	if (key & PAD_INPUT_3){
+		if (g_akey_prev == FALSE){
+			g_akey_prev = TRUE;
+			return TRUE;
+		}
+	}
+	else{
+		g_akey_prev = FALSE;
+	}
+	return FALSE;
+}
+int keychecker_d(int key){
+	if (key & PAD_INPUT_6){
 		if (g_akey_prev == FALSE){
 			g_akey_prev = TRUE;
 			return TRUE;
